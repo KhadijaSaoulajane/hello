@@ -7,11 +7,12 @@ environment {
     agent any
     stages {
     
-       stage('Clone Repository') {
-        // Get some code from a GitHub repository
-        git 'https://github.com/KhadijaSaoulajane/hello.git'
-    
-   }
+   
+stage('Cloning Git') {
+  steps {
+    git 'https://github.com/KhadijaSaoulajane/hello.git'
+  }
+}
         stage ('Checking java version') {
             steps {
                     sh 'java -version'
