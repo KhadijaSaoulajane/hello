@@ -9,7 +9,7 @@ environment {
     
        stage('Clone Repository') {
         // Get some code from a GitHub repository
-        git 'https://github.com/KhadijaSaoulajane/helloworld.git'
+        git 'https://github.com/KhadijaSaoulajane/hello.git'
     
    }
         stage ('Checking java version') {
