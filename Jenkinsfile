@@ -30,9 +30,11 @@ stage('Cloning Git') {
         }
 
 	stage('SonarQube Analysis'){
+	   steps {
 	     def mvnHome = tool name: 'maven-3.6.1', type: 'maven'
 	     withSonarQubeEnv('sonar'){
-		sh "${mvnHome}/bin/mvn sonar:sonar"
+		sh "'${mvnHome}/bin/mvn' clean package sonar:sonar"
+}
 }
 }
         
