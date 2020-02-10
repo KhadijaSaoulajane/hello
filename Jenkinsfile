@@ -28,6 +28,13 @@ stage('Cloning Git') {
                     sh 'mvn clean install'                                    
             }
         }
+
+	stage('SonarQube Analysis'){
+	     def mvnHome = tool name: 'maven-3.6.1', type: 'maven'
+	     withSonarQubeEnv('sonar'){
+		sh "${mvnHome}/bin/mvn sonar:sonar"
+}
+}
         
        
        stage('Building image') {
