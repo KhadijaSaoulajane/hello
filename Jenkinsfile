@@ -1,5 +1,4 @@
 pipeline {
-def mvnHome
 environment {
     registry = "khadijasaoulajane/jenkins"
     registryCredential = 'dockerhub'
@@ -12,7 +11,6 @@ environment {
 stage('Cloning Git') {
   steps {
     git 'https://github.com/KhadijaSaoulajane/hello.git'
-mvnHome = tool 'M3'
   }
 }
         stage ('Checking java version') {
@@ -31,11 +29,18 @@ mvnHome = tool 'M3'
             }
         }
 
-	stage('SonarQube analysis') {
-    steps { 
- withSonarQubeEnv('SonarQube') {
-      sh "'${mvnHome}/bin/mvn' clean package sonar:sonar"
-    }   }   }     
+	stage('SonarQube Analysis'){
+ environment {
+       mvnHome = tool name: 'maven-3.6.1', type: 'maven'
+
+    }
+	   steps {
+	  withSonarQubeEnv('sonar'){
+		sh "'${mvnHome}/bin/mvn' clean package sonar:sonar"
+}
+}
+}
+        
        
        stage('Building image') {
       steps{
